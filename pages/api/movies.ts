@@ -16,7 +16,7 @@ export type shortMovie = {
   img: string,
 }
 
-export const getMovies = async (word = 'love'): Promise<shortMovie[]> => {
+export const getMovies = async (word = 'corn'): Promise<shortMovie[]> => {
   const res = await fetch(`https://www.omdbapi.com/?s=${word}&apikey=8da00eef`);
   const movieArray = await res.json();
 
