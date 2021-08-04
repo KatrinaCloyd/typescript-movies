@@ -22,22 +22,22 @@ export default function MovieCard(movie: shortMovie) {
             <div key={movie.id} className={styles.card} onClick={() => getDetailInfo(movie.id)}>
                 <h3>{movie.title}</h3>
                 <p>{movie.year}</p>
-                <Image
+                {movie.img !== 'N/A' && <Image
                     src={movie.img}
                     alt="movie poster"
                     width={200}
                     height={300}
-                />
+                />}
             </div>
             {popUpOpen &&
                 <div className={styles.popupOutter}>
                     <section
                         className={styles.popup}
                         onClick={() => showPopUp(false)} >
-                        <img src={detailInfo.img}
+                        {movie.img !== 'N/A' && <img src={detailInfo.img}
                             alt="movie poster"
                             className={styles.detailPoster}
-                        />
+                        />}
                         <section>
                             <h2>{detailInfo.title}</h2>
                             <p>Rated: {detailInfo.rating}</p>
