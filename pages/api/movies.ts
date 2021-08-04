@@ -1,20 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-
-export type Movie = {
-  Title: string,
-  Year: string,
-  imdbID: string,
-  Type: string,
-  Poster: string,
-}
-
-export type shortMovie = {
-  title: string,
-  year: string,
-  id: string,
-  img: string,
-}
+import { shortMovie, Movie, MyMovieDetail } from "./types";
 
 export const getMovies = async (word = 'corn'): Promise<shortMovie[]> => {
   const res = await fetch(`https://www.omdbapi.com/?s=${word}&apikey=8da00eef`);
@@ -26,4 +10,28 @@ export const getMovies = async (word = 'corn'): Promise<shortMovie[]> => {
     id: movie.imdbID,
     img: movie.Poster,
   }));
+}
+
+export const getMovieDetail = async (id: string): Promise<MyMovieDetail> => {
+  const res = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=8da00eef`);
+  const movie = await res.json();
+
+  return {
+    id: movie.imdbID,
+    title: movie.Title,
+    year: movie.Year,
+    rating: movie.Rated,
+    released: movie.Released,
+    length: movie.Runtime,
+    genre: movie.Genre,
+    actors: movie.Actors,
+    director: movie.Director,
+    production: movie.Production,
+    summary: movie.Plot,
+    img: movie.Poster,
+    ratings: movie.Ratings,
+    imdbRating: movie.imdbRating,
+    imdbVotes: movie.imdbVotes,
+    boxOffice: movie.BoxOffice,
+  };
 }

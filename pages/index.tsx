@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 
 import { useEffect, useState } from 'react'
 import { getMovies } from './api/movies'
-import { shortMovie } from './api/movies'
+import { shortMovie } from './api/types'
 
 import MovieCard from '../components/Movie'
 
@@ -12,10 +12,10 @@ export default function Home() {
   const [info, setInfo] = useState([]);
 
 
+
   useEffect(() => {
     getMovies()
       .then(setInfo)
-      .finally(() => console.log(info))
   }, [])
 
   return (
@@ -28,7 +28,7 @@ export default function Home() {
 
       <main >
         <h1>
-          Hello World of Typescript!
+          Let's Look at Some Movies!
         </h1>
         <section className={styles.list}>
           {info.map((e: shortMovie) => <MovieCard {...e} key={e.id} />)}
