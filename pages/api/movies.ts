@@ -1,8 +1,11 @@
 import { shortMovie, Movie, MyMovieDetail } from "./types";
 
-export const getMovies = async (word = 'corn'): Promise<shortMovie[]> => {
+export const getMovies = async (word = 'corn'): Promise<shortMovie[] | string> => {
   const res = await fetch(`https://www.omdbapi.com/?s=${word}&apikey=8da00eef`);
   const movieArray = await res.json();
+  if (movieArray.Error) {
+    return 'There was a problem.';
+  }
 
   return movieArray.Search.map((movie: Movie) => ({
     title: movie.Title,
@@ -12,9 +15,12 @@ export const getMovies = async (word = 'corn'): Promise<shortMovie[]> => {
   }));
 }
 
-export const getMovieDetail = async (id: string): Promise<MyMovieDetail> => {
+export const getMovieDetail = async (id: string): Promise<MyMovieDetail | string> => {
   const res = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=8da00eef`);
   const movie = await res.json();
+  if (movie.Error) {
+    return 'There was a problem.';
+  }
 
   return {
     id: movie.imdbID,

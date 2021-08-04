@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { getMovies } from './api/movies'
 import { shortMovie } from './api/types'
 
@@ -11,12 +11,20 @@ export default function Home() {
   // const info = await getMovies();
   const [info, setInfo] = useState([]);
 
-
-
   useEffect(() => {
     getMovies()
       .then(setInfo)
   }, [])
+
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const searchSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    getMovies(searchTerm)
+      .then(setInfo)
+      .finally(() => setSearchTerm(''))
+  }
 
   return (
     <div className={styles.container}>
@@ -28,10 +36,23 @@ export default function Home() {
 
       <main >
         <h1>
-          Let's Look at Some Movies!
+          Let&rsquo;s Look at Some Movies!
         </h1>
+        <h3>Oh, you don&rsquo;t like corney movies? Fine you can search for your own!</h3>
+        <form onSubmit={(e) => searchSubmit(e)}>
+          <input
+            type='text'
+            placeholder='Ex: Batman'
+            onChange={(e) => setSearchTerm(e.target.value)}
+            value={searchTerm}
+          />
+          <button>Search!</button>
+        </form>
         <section className={styles.list}>
-          {info.map((e: shortMovie) => <MovieCard {...e} key={e.id} />)}
+          {info[0] ?
+            info.map((e: shortMovie) => <MovieCard {...e} key={e.id} />)
+            :
+            <p>Sorry there was a problem with that sarch please try again.</p>}
         </section>
       </main>
     </div>
