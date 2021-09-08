@@ -12,3 +12,4 @@ Uses the [Open Movie Database](https://www.omdbapi.com/) for all information.
 - Add animations to pop up open and close 
 
 (adding a comment here)
+(comment two)
