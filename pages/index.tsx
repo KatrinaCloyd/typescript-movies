@@ -8,8 +8,8 @@ import { shortMovie } from './api/types'
 import MovieCard from '../components/Movie'
 
 export default function Home() {
-  // const info = await getMovies();
-  const [info, setInfo] = useState([]);
+
+  const [info, setInfo] = useState<shortMovie[] | string>('');
 
   useEffect(() => {
     getMovies()
