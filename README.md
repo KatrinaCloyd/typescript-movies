@@ -10,6 +10,3 @@ Uses the [Open Movie Database](https://www.omdbapi.com/) for all information.
 - Allow for pagination of results based on totalResuts count
 - Actually style the page 
 - Add animations to pop up open and close 
-
-(adding a comment here)
-(comment two)
