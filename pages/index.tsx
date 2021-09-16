@@ -52,7 +52,7 @@ export default function Home() {
           {typeof info !== "string" ?
             info.map((e: shortMovie) => <MovieCard {...e} key={e.id} />)
             :
-            <p>Sorry there was a problem with that sarch please try again.</p>}
+            <p>Sorry there was a problem with that search please try again.</p>}
         </section>
       </main>
     </div>
