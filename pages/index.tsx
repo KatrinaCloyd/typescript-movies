@@ -49,7 +49,7 @@ export default function Home() {
           <button>Search!</button>
         </form>
         <section className={styles.list}>
-          {info[0] ?
+          {typeof info !== "string" ?
             info.map((e: shortMovie) => <MovieCard {...e} key={e.id} />)
             :
             <p>Sorry there was a problem with that sarch please try again.</p>}
