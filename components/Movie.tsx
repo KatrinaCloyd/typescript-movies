@@ -2,14 +2,14 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
-import { shortMovie } from '../pages/api/types'
+import { shortMovie, MyMovieDetail } from '../pages/api/types'
 import { getMovieDetail } from '../pages/api/movies'
 import styles from '../styles/Home.module.css'
 
 export default function MovieCard(movie: shortMovie) {
 
     const [popUpOpen, showPopUp] = useState(false);
-    const [detailInfo, setDetailInfo] = useState();
+    const [detailInfo, setDetailInfo] = useState<MyMovieDetail | string>('');
 
     const getDetailInfo = (id: string) => {
         getMovieDetail(id)
@@ -29,7 +29,7 @@ export default function MovieCard(movie: shortMovie) {
                     height={300}
                 />}
             </div>
-            {popUpOpen &&
+            { typeof detailInfo !== "string" && popUpOpen &&
                 <div className={styles.popupOutter}>
                     <section
                         className={styles.popup}
@@ -49,7 +49,7 @@ export default function MovieCard(movie: shortMovie) {
                             <p>Director: {detailInfo.director}</p>
                             <p>Production Company: {detailInfo.production}</p>
                             <h3>Ratings:</h3>
-                            {detailInfo.ratings.map((e) => <p key={e.index}>{e.Source}: {e.Value}</p>)}
+                            {detailInfo.ratings.map((e) => <p key={e.Source + e.Value}>{e.Source}: {e.Value}</p>)}
                             <p>IMDB: {detailInfo.imdbRating} stars  - with {detailInfo.imdbVotes} votes</p>
                             <p>Box Office Gains: {detailInfo.boxOffice}</p>
                         </section>
